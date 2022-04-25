@@ -1,6 +1,6 @@
 # Randomness
 
-## Intitial Rough Layout
+## Initial Rough Layout
 
 ![screenShot1](./src/main/resources/static/images/readMeImages/screenShot01.png)
 ![screenShot2](./src/main/resources/static/images/readMeImages/screenShot02.png)
