@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+body,
+html {
+  height: 100%;
+}
+
+#bgImage {
+  /* The image used */
+  background-image: url("/images/bgs/LandingBG12.png");
+  background-color: black;
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg111 {
+  /* The image used */
+  background-image: url("/images/bgs/LandingBG111.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.bg110 {
+  /* The image used */
+  background-image: url("/images/bgs/LandingBG110.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.scrollspy-example {
+  position: relative;
+  height: 400px;
+  margin-top: 0.5rem;
+  overflow: auto;
+}
+
+.overlay {
+  background-color: rgba(48, 43, 46, 0.75);
+}
+
+/* Color Theme Swatches in RGBA */
+.Vintage-Play-1-rgba {
+  color: rgba(48, 43, 46, 1);
+}
+.Vintage-Play-2-rgba {
+  color: rgba(62, 86, 104, 1);
+}
+.Vintage-Play-3-rgba {
+  color: rgba(145, 166, 181, 1);
+}
+.Vintage-Play-4-rgba {
+  color: rgba(255, 182, 0, 1);
+}
+.Vintage-Play-5-rgba {
+  color: rgba(255, 90, 84, 1);
+}
+
+/* Background Color Theme Swatches in RGBA */
+.Vintage-Play-1-rgba-bg {
+  background-color: rgba(48, 43, 46, 1);
+}
+.Vintage-Play-2-rgba-bg {
+  background-color: rgba(62, 86, 104, 1);
+}
+.Vintage-Play-3-rgba-bg {
+  background-color: rgba(145, 166, 181, 1);
+}
+.Vintage-Play-4-rgba-bg {
+  background-color: rgba(255, 182, 0, 1);
+}
+.Vintage-Play-5-rgba-bg {
+  background-color: rgba(255, 90, 84, 1);
+}
