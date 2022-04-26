@@ -9,7 +9,7 @@
             <!-- form:form -->
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
                 <!-- for rendering errors on PUT routes -->
-                <main%@ page isErrorPage="true" %>
+                <%@ page isErrorPage="true" %>
 
                     <!DOCTYPE html>
 

@@ -177,7 +177,7 @@
 
                                 </div>
 
-
+                            </div>
                         </section>
                         <!-- Middle Section END -->
 
@@ -190,10 +190,8 @@
                                 <!-- Bottom Left Column -->
                                 <div class="">
 
-                                    <iframe width="427" height="240" src="https://www.youtube.com/embed/M5QY2_8704o"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
+                                    <iframe width="427" height="240"
+                                        src="https://www.youtube.com/embed/M5QY2_8704o"></iframe>
                                 </div>
 
                                 <!-- Bottom Middle Column -->
