@@ -33,6 +33,19 @@
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
                         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
+                        <!-- style for the background of the Weather div -->
+                        <style>
+                            .bgWeather {
+                                background-image: url("/images/weatherBackgrounds/${wad.icon}.png");
+                                background-repeat: no-repeat;
+                                width: 460px;
+                                min-height: 460px;
+                                background-size: cover;
+                                background-position: center;
+                                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                            }
+                        </style>
+
                         <link rel="stylesheet" type="text/css" href="/css/style.css">
 
                     </head>
@@ -79,7 +92,8 @@
                                                 Select A Page
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li><a class="dropdown-item" href="/">Home</a></li>
+                                                <li><a class="dropdown-item" href="/randomness/weather">Weather</a>
+                                                </li>
                                                 <li><a class="dropdown-item" href="/randomness/login">Login</a></li>
                                                 <li><a class="dropdown-item" href="/randomness/logout">Logout</a>
                                                 </li>
@@ -150,10 +164,71 @@
                                 <!-- Middle Left Column -->
                                 <div class="">
 
+
+                                    <!-- --------- Weather section ------------- -->
                                     <div class="container">
+                                        <!-- 
                                         <img class="img-fluid" src="/images/layout/weatherLayout.png" alt="weather"
-                                            width="600px">
+                                            width="600px"> -->
+
+                                        <!-- Weather section START -->
+                                        <section class="p-5">
+                                            <div class="container bgWeather">
+                                                <!-- Top bar -->
+                                                <div class="row">
+                                                    <h1 class="text-center text-dark bg-warning">
+                                                        <c:out value="${wad.city}"></c:out>, <span
+                                                            class="h4 text-secondary">
+                                                            <c:out value="${wad.state}">
+                                                            </c:out>
+                                                        </span>
+                                                    </h1>
+                                                </div>
+                                                <!-- middle row -->
+                                                <div class="d-flex">
+
+                                                    <div class="col">
+                                                        <h1
+                                                            class="p-1 mt-2 text-center align-self-center text-danger fw-bold bg-light bg-opacity-50 display-4 rounded-pill">
+                                                            <c:out value="${wad.temperature}°"></c:out>
+                                                        </h1>
+                                                    </div>
+                                                </div>
+                                                <!-- bottom row -->
+                                                <div class="mt-5">
+                                                    <div class="text-light mt-3 float-end mb-2">
+                                                        <p>low: <c:out value="${wad.lows}°"></c:out><br>
+                                                            high: <c:out value="${wad.highs}°"></c:out><br>
+                                                            windSpeed: <c:out value="${wad.windSpeed}"></c:out><br>
+                                                            humidity: <c:out value="${wad.humidity}°"></c:out><br>
+                                                            feels like: <c:out value="${wad.feelsLike}°"></c:out><br>
+                                                            longitude: <c:out value="${wad.longitude}"></c:out><br>
+                                                            latitude: <c:out value="${wad.latitude}"></c:out><br>
+                                                            zipcode: <c:out value="${wad.zip}"></c:out><br>
+                                                            <a class="btn btn-outline-info" href="/">Randomize</a>
+                                                            <br>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="float-start ps-1 mt-4">
+                                                    <div class="mt-5">
+                                                        <br class="mt-5">
+                                                        <h3 class="mt-5 align-self-bottom text-light">
+                                                            <c:out value="${wad.condition}"></c:out><br><span
+                                                                class="mt-5 text-warning">
+                                                                <c:out value="${wad.description}"></c:out>
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- button to randomize -->
+                                        </section>
+                                        <!-- Weather section END -->
+
+
                                     </div>
+
 
 
                                 </div>
@@ -218,6 +293,7 @@
 
                         <p class="w-100"></p>
 
+                        <script src="/js/app.js"></script>
                         <script src="/js/landingJS.js"></script>
                     </body>
 

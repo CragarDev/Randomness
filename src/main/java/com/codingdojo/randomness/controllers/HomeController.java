@@ -1,5 +1,7 @@
 package com.codingdojo.randomness.controllers;
 
+import java.text.ParseException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -14,7 +16,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.randomness.models.LoginUser;
 import com.codingdojo.randomness.models.User;
+import com.codingdojo.randomness.models.Weather;
 import com.codingdojo.randomness.services.UserService;
+import com.codingdojo.randomness.services.WeatherService;
+
 
 
 
@@ -25,14 +30,63 @@ public class HomeController {
 	// Inject the services
 	//
 	private final UserService userService;
+	//
+	// Inject the Weather Service
+	//
+	private final WeatherService weatherService;
 	
 	//
 	// service constructor
 	//
-	public HomeController(UserService userService) {
+
+	   
+    public HomeController(UserService userService, WeatherService weatherService) {
 		super();
 		this.userService = userService;
+		this.weatherService = weatherService;
 	}
+
+	
+	
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Random Weather  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+	
+
+	// constructor for Weather Service
+
+
+	// route for the standalone page
+	@RequestMapping("/randomness/weather")
+	public String weather(
+			Model model,
+    		HttpSession session,
+    		RedirectAttributes redirectAttributes) {
+		
+		// check to see if user is logged in
+    	
+    	if (session.getAttribute("user_id") == null) {
+    		return "redirect:/createError";
+    	}
+    	
+    	// get users data to show them logged in
+    	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
+    	
+    	// grab the new weather from the api
+		Weather wad = null;
+		try {
+			wad = weatherService.weatherData();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("wad", wad);
+
+		return "randomWeather.jsp";
+	}
+	
 	
 	
 	
@@ -43,9 +97,21 @@ public class HomeController {
 	// **************************************************************************************************************
 	
 
-   
-    @GetMapping("/")
-    public String index() {
+
+
+
+
+	@GetMapping("/")
+    public String index(Model model) {
+    	
+    	Weather wad = null;
+		try {
+			wad = weatherService.weatherData();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("wad", wad);
 
         return "index.jsp";
     }
@@ -59,6 +125,8 @@ public class HomeController {
 
     @GetMapping("/randomness/landing")
     public String randomness() {
+    	
+    	
 
         return "redirect:/";
     }

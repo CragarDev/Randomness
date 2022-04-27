@@ -78,7 +78,7 @@
                                                     Select A Page
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="/">Home</a></li>
+                                                    <li><a class="dropdown-item" href="/randomness/weather">Weather</a></li>
                                                     <li><a class="dropdown-item" href="/randomness/login">Login</a></li>
                                                     <li><a class="dropdown-item" href="/randomness/logout">Logout</a>
                                                     </li>
