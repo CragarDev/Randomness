@@ -51,11 +51,6 @@ public class WeatherService {
 
     public Weather weatherData() throws ParseException {
 
-        // Weather API https://api.openweathermap.org/data/2.5/weather?zip={zip
-        // code}&appid={API key}
-        // Weather API Key c3bcfd5329104ae49f6e6100b09b6496;
-        // Google Maps API Key AIzaSyC0-5eUzF_duspzFF7gjm0FQF_iNa4cW6U;
-
         // define a zipcode variable
         String zipcode = null;
 
@@ -86,7 +81,7 @@ public class WeatherService {
 
                 // set up the url
                 URL url = new URL("https://api.openweathermap.org/data/2.5/weather?zip=" + zipcode
-                        + "&appid=c3bcfd5329104ae49f6e6100b09b6496&units=imperial");
+                        + "&appid=<APIKEY>&units=imperial");
 
                 // Open our connection
                 connection = (HttpURLConnection) url.openConnection();
@@ -126,11 +121,11 @@ public class WeatherService {
         JSONParser parser = new JSONParser();
         JSONObject json = null;
         try {
-			json = (JSONObject) parser.parse(returnedData);
-		} catch (org.json.simple.parser.ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // generates the json object to return
+            json = (JSONObject) parser.parse(returnedData);
+        } catch (org.json.simple.parser.ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // generates the json object to return
 
         // use session to store the zipcode
         // session.setAttribute("zipcode", zipcode);
