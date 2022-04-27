@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.randomness.models.LoginUser;
 import com.codingdojo.randomness.models.User;
+import com.codingdojo.randomness.models.Image;
+import com.codingdojo.randomness.services.ImageService;
 import com.codingdojo.randomness.services.UserService;
 
 
@@ -25,13 +28,15 @@ public class HomeController {
 	// Inject the services
 	//
 	private final UserService userService;
+	private final ImageService imageService;
 	
 	//
 	// service constructor
 	//
-	public HomeController(UserService userService) {
+	public HomeController(UserService userService, ImageService imageService) {
 		super();
 		this.userService = userService;
+		this.imageService = imageService;
 	}
 	
 	
@@ -86,15 +91,34 @@ public class HomeController {
     	// get users data to show them logged in
     	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
     	
-    	
-
         return "dashboard.jsp";
     }
     
     
+    // **************************************************************************************************************
+    //
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  RANDOM IMAGES   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // **************************************************************************************************************
     
-    
-    
+	@GetMapping("/image/search")
+    public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
+		Image newImage = new Image();
+		String returnUrl = Image.fetchImage(searchQuery);
+		model.addAttribute("picUrl", returnUrl);
+        return "randomPicture.jsp";
+    }
+
+	@GetMapping("/image/rand")
+    public String randomImage(Model model) {
+		Image newImage = new Image();
+		Image returnImage = Image.fetchImage();
+		System.out.println("**********************");
+        System.out.println(returnImage.getNsfwRating());
+        System.out.println("**********************");
+		model.addAttribute("Image", returnImage);
+        return "randomPicture.jsp";
+    }
     
     
     

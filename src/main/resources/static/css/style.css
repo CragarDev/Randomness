@@ -45,6 +45,19 @@ html {
   background-size: cover;
 }
 
+.bg107 {
+  /* The image used */
+  background-image: url("/images/bgs/LandingBG107.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+}
+
 .scrollspy-example {
   position: relative;
   height: 400px;
