@@ -151,8 +151,8 @@
                                 <div class="">
 
                                     <div class="container">
-                                        <img class="img-fluid" src="/images/layout/parrot.jpeg" alt="parrot"
-                                            width="420px">
+                                        <img class="img-fluid" src="/images/layout/weatherLayout.png" alt="weather"
+                                            width="600px">
                                     </div>
 
 
