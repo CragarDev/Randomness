@@ -1,6 +1,11 @@
 package com.codingdojo.randomness.models;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,6 +50,11 @@ public class Image {
     @Column
     private String category;
 
+    @NotNull
+    @NotBlank
+    @Column
+    private Double nsfwRating;
+
     public Image() {
     }
 
@@ -86,7 +96,20 @@ public class Image {
         this.category = category;
     }
 
-    public static String fetchImage(){
+    public Double getNsfwRating() {
+        return nsfwRating;
+    }
+
+    public void setNsfwRating(Double nsfwRating) {
+        this.nsfwRating = nsfwRating;
+    }
+
+
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+
+    
+    public static Image fetchImage(){
+        Image newImage = new Image();
         Random rand = new Random();
         int picNumTwo = rand.nextInt(1084);       // Generate random value for selecting image from Json Result
                                                         // Search query * to be entered by user *
@@ -124,6 +147,14 @@ public class Image {
             e.printStackTrace();
         }
 
+        JsonObject jObj = JsonParser.parseString(nsfwInfo).getAsJsonObject();
+        JsonElement jElement = jObj.get("NSFW_Prob");
+        Double nsfwRating = jElement.getAsDouble();
+        System.out.println("-------------");
+        System.out.println(nsfwRating);
+        System.out.println("-------------");
+
+        String lResponse = "";
         String labels = "";
         try {
             HttpResponse<String> labelResponse = Unirest.post("https://image-labeling1.p.rapidapi.com/img/label")
@@ -133,12 +164,32 @@ public class Image {
             .body(apiUrl)
             .asString();
 
-            labels = labelResponse.getBody();
+            lResponse = labelResponse.getBody();
         } catch (UnirestException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
+        Pattern p = Pattern.compile("\"([^\"]*)\"");
+        Matcher m = p.matcher(lResponse);
+        while (m.find()) {
+            // System.out.println(m.group(1));
+            labels += (m.group(1));
+            labels += " | ";
+        }
+        // Double nsfwRating = jElement.getAsDouble();
+        // System.out.println("-------------");
+        // System.out.println(labelsObj);
+        // System.out.println("-------------");
+              // convert double to BigDecimal
+        nsfwRating = nsfwRating * 100;
+        BigDecimal tempNsfwDecimal = new BigDecimal(nsfwRating).setScale(2, RoundingMode.HALF_UP);
+        nsfwRating = tempNsfwDecimal.doubleValue();
+        newImage.setUrl(picture.toString());
+        newImage.setArtist(artist.toString().replaceAll("\"", ""));
+        newImage.setNsfwRating(nsfwRating);
+        newImage.setCategory(labels);
+
         System.out.println("///////////////////////////////////////");
         System.out.println(artist);
         System.out.println(picture);
@@ -146,8 +197,15 @@ public class Image {
         System.out.println(labels);
         System.out.println("///////////////////////////////////////");
 
-        return picture.toString();
+        return newImage;
     }
+
+
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
     public static String fetchImage(String query){
         Image newImage = new Image();
         String stringToParse = "";
@@ -160,7 +218,7 @@ public class Image {
         String search = "https://pexelsdimasv1.p.rapidapi.com/v1/search?query=" + query + "&locale=en-US&per_page=50&page=1";
         try {
             HttpResponse<String> response = Unirest.get(search)
-            .header("Authorization", " *** insert API key here *** ")
+            .header("Authorization", "563492ad6f91700001000001531ba5b6131744a38b9b9b7901022ff7")
             .header("X-RapidAPI-Host", "PexelsdimasV1.p.rapidapi.com")
             .header("X-RapidAPI-Key", "297858111amsh921cb02eb5b6074p1b2579jsn280f7b970284")
             .asString();

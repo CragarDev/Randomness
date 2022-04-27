@@ -55,22 +55,6 @@ public class HomeController {
         return "index.jsp";
     }
 
-	@GetMapping("/image/search")
-    public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
-		Image newImage = new Image();
-		String returnUrl = Image.fetchImage(searchQuery);
-		model.addAttribute("picUrl", returnUrl);
-        return "randomPicture.jsp";
-    }
-
-	@GetMapping("/image/rand")
-    public String randomImage(Model model) {
-		Image newImage = new Image();
-		String returnUrl = Image.fetchImage();
-		model.addAttribute("picUrl", returnUrl);
-        return "randomPicture.jsp";
-    }
-
 
 	@GetMapping("/home")
     public String home() {
@@ -107,15 +91,34 @@ public class HomeController {
     	// get users data to show them logged in
     	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
     	
-    	
-
         return "dashboard.jsp";
     }
     
     
+    // **************************************************************************************************************
+    //
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  RANDOM IMAGES   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // **************************************************************************************************************
     
-    
-    
+	@GetMapping("/image/search")
+    public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
+		Image newImage = new Image();
+		String returnUrl = Image.fetchImage(searchQuery);
+		model.addAttribute("picUrl", returnUrl);
+        return "randomPicture.jsp";
+    }
+
+	@GetMapping("/image/rand")
+    public String randomImage(Model model) {
+		Image newImage = new Image();
+		Image returnImage = Image.fetchImage();
+		System.out.println("**********************");
+        System.out.println(returnImage.getNsfwRating());
+        System.out.println("**********************");
+		model.addAttribute("Image", returnImage);
+        return "randomPicture.jsp";
+    }
     
     
     
