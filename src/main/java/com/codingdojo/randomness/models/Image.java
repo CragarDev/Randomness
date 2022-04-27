@@ -218,7 +218,7 @@ public class Image {
         String search = "https://pexelsdimasv1.p.rapidapi.com/v1/search?query=" + query + "&locale=en-US&per_page=50&page=1";
         try {
             HttpResponse<String> response = Unirest.get(search)
-            .header("Authorization", "563492ad6f91700001000001531ba5b6131744a38b9b9b7901022ff7")
+            .header("Authorization", "APIKEY")
             .header("X-RapidAPI-Host", "PexelsdimasV1.p.rapidapi.com")
             .header("X-RapidAPI-Key", "297858111amsh921cb02eb5b6074p1b2579jsn280f7b970284")
             .asString();
