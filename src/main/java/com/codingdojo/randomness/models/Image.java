@@ -87,13 +87,11 @@ public class Image {
     }
 
     public static String fetchImage(){
-        Random rand = new Random(); 
-        int picNum = rand.nextInt(50); 
-        int picNumTwo = rand.nextInt(1084);    // Generate random value for selecting image from Json Result
-        String query = "Space";                // Search query * to be entered by user *
-                                                // Form URL with user query
+        Random rand = new Random();
+        int picNumTwo = rand.nextInt(1084);       // Generate random value for selecting image from Json Result
+                                                        // Search query * to be entered by user *
+                                                        // Form URL with user query
         String search = "https://picsum.photos/id/" + picNumTwo + "/info";
-        Image newImage = new Image();
         String HTTPResult = "";
         
         try {
@@ -126,8 +124,6 @@ public class Image {
             e.printStackTrace();
         }
 
-        
-
         String labels = "";
         try {
             HttpResponse<String> labelResponse = Unirest.post("https://image-labeling1.p.rapidapi.com/img/label")
@@ -143,7 +139,6 @@ public class Image {
             e.printStackTrace();
         }
         
-
         System.out.println("///////////////////////////////////////");
         System.out.println(artist);
         System.out.println(picture);
@@ -152,7 +147,6 @@ public class Image {
         System.out.println("///////////////////////////////////////");
 
         return picture.toString();
-
     }
     public static String fetchImage(String query){
         Image newImage = new Image();
@@ -160,14 +154,13 @@ public class Image {
         String nsfwInfo = "";
         String labels = "";
         Random rand = new Random(); 
-        int picNum = rand.nextInt(50); 
-        int picNumTwo = rand.nextInt(1084);   // Generate random value for selecting image from Json Result
+        int picNum = rand.nextInt(50);        // Generate random value for selecting image from Json Result
                                                     // Search query * to be entered by user *
                                                     // Form URL with user query
         String search = "https://pexelsdimasv1.p.rapidapi.com/v1/search?query=" + query + "&locale=en-US&per_page=50&page=1";
         try {
             HttpResponse<String> response = Unirest.get(search)
-            .header("Authorization", "563492ad6f91700001000001531ba5b6131744a38b9b9b7901022ff7")
+            .header("Authorization", " *** insert API key here *** ")
             .header("X-RapidAPI-Host", "PexelsdimasV1.p.rapidapi.com")
             .header("X-RapidAPI-Key", "297858111amsh921cb02eb5b6074p1b2579jsn280f7b970284")
             .asString();
@@ -187,7 +180,6 @@ public class Image {
         JsonObject tempFinal = tempElement.getAsJsonObject();
         JsonElement picUrl = tempFinal.get("original");
         String picture = picUrl.toString();
-        String imageUrl = "";
 
         String apiUrl = "{ \"url\": " + picture + "}";
         
@@ -205,7 +197,6 @@ public class Image {
             e.printStackTrace();
         }
 
-        
         try {
             HttpResponse<String> labelResponse = Unirest.post("https://image-labeling1.p.rapidapi.com/img/label")
             .header("content-type", "application/json")
@@ -227,11 +218,7 @@ public class Image {
         System.out.println(labels);
         System.out.println("///////////////////////////////////////");
         
-
-
         return picture;
     }
-
-
 
 }
