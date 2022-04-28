@@ -94,6 +94,9 @@
                                                     <li><a class="dropdown-item"
                                                             href="/randomness/dashboard">Dashboard</a>
                                                     </li>
+                                                     <li><a class="dropdown-item"
+                                                            href="/indexCovid">Covid Cases</a>
+                                                    </li>
 
                                                     <!-- <li><a class="dropdown-item" href="/dashboard">ShowMany</a></li> -->
                                                     <!-- <li><a class="dropdown-item" href="/createOne">CreateOne</a></li> -->
