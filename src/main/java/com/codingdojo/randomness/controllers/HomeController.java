@@ -1,5 +1,7 @@
 package com.codingdojo.randomness.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.codingdojo.randomness.models.Image;
+import com.codingdojo.randomness.models.LocationStats;
 import com.codingdojo.randomness.models.LoginUser;
 import com.codingdojo.randomness.models.User;
-import com.codingdojo.randomness.models.Image;
+import com.codingdojo.randomness.services.CoronaVirusDataService;
 import com.codingdojo.randomness.services.ImageService;
 import com.codingdojo.randomness.services.UserService;
 
@@ -30,14 +34,20 @@ public class HomeController {
 	private final UserService userService;
 	private final ImageService imageService;
 	
+	
+	private final CoronaVirusDataService coronaVirusDataService;
+	
 	//
 	// service constructor
 	//
-	public HomeController(UserService userService, ImageService imageService) {
+	public HomeController(UserService userService, ImageService imageService, CoronaVirusDataService coronaVirusDataService) {
 		super();
 		this.userService = userService;
 		this.imageService = imageService;
+		this.coronaVirusDataService = coronaVirusDataService;
 	}
+	
+	
 	
 	
 	
@@ -120,6 +130,27 @@ public class HomeController {
         return "randomPicture.jsp";
     }
     
+	// **************************************************************************************************************
+    //
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Michael Lay - COvid Cases  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // **************************************************************************************************************
+
+ 
+	@GetMapping("/indexCovid") 
+	public String index(Model model) {
+		List<LocationStats>allStats = coronaVirusDataService.getAllStats();
+		int totalReportedCases = allStats.stream().mapToInt(stat ->stat.getLastestTotalCases()).sum();
+		model.addAttribute("locationStats", allStats);
+		model.addAttribute("totalReportedCases", totalReportedCases);
+		
+		return "indexCovid.jsp"; }
+
+	@GetMapping("/randomCovid")
+public String random() {
+	return "randomCovid.jsp";
+}
+
     
     
 
@@ -214,6 +245,6 @@ public class HomeController {
     
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-	
+	//Michael Lay
 
 }
