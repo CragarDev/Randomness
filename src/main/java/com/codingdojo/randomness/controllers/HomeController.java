@@ -1,5 +1,6 @@
 package com.codingdojo.randomness.controllers;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -19,113 +20,119 @@ import com.codingdojo.randomness.models.Image;
 import com.codingdojo.randomness.models.LocationStats;
 import com.codingdojo.randomness.models.LoginUser;
 import com.codingdojo.randomness.models.User;
+import com.codingdojo.randomness.models.Weather;
+import com.codingdojo.randomness.models.Image;
 import com.codingdojo.randomness.services.CoronaVirusDataService;
 import com.codingdojo.randomness.services.ImageService;
 import com.codingdojo.randomness.services.UserService;
-
-
+import com.codingdojo.randomness.services.WeatherService;
 
 @Controller
 public class HomeController {
-	
+
 	//
 	// Inject the services
 	//
 	private final UserService userService;
 	private final ImageService imageService;
-	
-	
-	private final CoronaVirusDataService coronaVirusDataService;
+  private final CoronaVirusDataService coronaVirusDataService;
+
+	private final WeatherService weatherService;
+
 	
 	//
 	// service constructor
 	//
-	public HomeController(UserService userService, ImageService imageService, CoronaVirusDataService coronaVirusDataService) {
+	public HomeController(UserService userService, ImageService imageService, CoronaVirusDataService coronaVirusDataService, WeatherService weatherService) {
 		super();
 		this.userService = userService;
 		this.imageService = imageService;
 		this.coronaVirusDataService = coronaVirusDataService;
+    this.weatherService = weatherService;
 	}
 	
-	
-	
-	
-	
+
 	// **************************************************************************************************************
 	//
-	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  LANDING PAGE  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ LANDING PAGE
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//
 	// **************************************************************************************************************
-	
 
-   
-    @GetMapping("/")
-    public String index() {
+	@GetMapping("/")
+	public String index(Model model) {
 
-        return "index.jsp";
-    }
+		Weather wad = null;
+		try {
+			wad = weatherService.weatherData();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("wad", wad);
 
+		return "index.jsp";
+	}
 
 	@GetMapping("/home")
-    public String home() {
+	public String home() {
 
-        return "redirect:/";
-    }
+		return "redirect:/";
+	}
 
-    @GetMapping("/randomness/landing")
-    public String randomness() {
+	@GetMapping("/randomness/landing")
+	public String randomness() {
 
-        return "redirect:/";
-    }
+		return "redirect:/";
+	}
 
-    
-    // **************************************************************************************************************
-    //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  DASHBOARD PAGE  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //
-    // **************************************************************************************************************
-    
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DASHBOARD PAGE
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
 
-    @GetMapping("/randomness/dashboard")
-    public String dashboard(
-    		Model model,
-    		HttpSession session,
-    		RedirectAttributes redirectAttributes) {
-    	
-    	// check to see if user is logged in
-    	
-    	if (session.getAttribute("user_id") == null) {
-    		return "redirect:/createError";
-    	}
-    	
-    	// get users data to show them logged in
-    	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
-    	
-        return "dashboard.jsp";
-    }
-    
-    
-    // **************************************************************************************************************
-    //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  RANDOM IMAGES   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //
-    // **************************************************************************************************************
-    
+	@GetMapping("/randomness/dashboard")
+	public String dashboard(
+			Model model,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
+
+		// check to see if user is logged in
+
+//		if (session.getAttribute("user_id") == null) {
+//			return "redirect:/createError";
+//		}
+
+		// get users data to show them logged in
+//		model.addAttribute("loggedUser", userService.findUser((Long) session.getAttribute("user_id")));
+
+		return "dashboard.jsp";
+	}
+
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ RANDOM IMAGES
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
 	@GetMapping("/image/search")
-    public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
+	public String randomImage(@RequestParam(value = "q") String searchQuery, Model model) {
 		Image newImage = new Image();
 		String returnUrl = Image.fetchImage(searchQuery);
 		model.addAttribute("picUrl", returnUrl);
-        return "randomPicture.jsp";
-    }
+		return "randomPicture.jsp";
+	}
 
 	@GetMapping("/image/rand")
-    public String randomImage(Model model) {
+	public String randomImage(Model model) {
 		Image newImage = new Image();
 		Image returnImage = Image.fetchImage();
 		System.out.println("**********************");
-        System.out.println(returnImage.getNsfwRating());
-        System.out.println("**********************");
+		System.out.println(returnImage.getNsfwRating());
+		System.out.println("**********************");
 		model.addAttribute("Image", returnImage);
         return "randomPicture.jsp";
     }
@@ -151,15 +158,51 @@ public String random() {
 	return "randomCovid.jsp";
 }
 
-    
-    
 
 	// **************************************************************************************************************
-    //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  LOGIN REGISTRATION  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //
-    // **************************************************************************************************************
-    
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Random Weather
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
+	// constructor for Weather Service
+
+	// route for the standalone page
+	@RequestMapping("/randomness/weather")
+	public String weather(
+			Model model,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
+
+		// check to see if user is logged in
+
+//		if (session.getAttribute("user_id") == null) {
+//			return "redirect:/createError";
+//		}
+
+		// get users data to show them logged in
+//		model.addAttribute("loggedUser", userService.findUser((Long) session.getAttribute("user_id")));
+
+		// grab the new weather from the api
+		Weather wad = null;
+		try {
+			wad = weatherService.weatherData();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("wad", wad);
+
+		return "randomWeather.jsp";
+	}
+
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ LOGIN REGISTRATION
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
 
 	@GetMapping("/randomness/login")
 	public String login(Model model, HttpSession session) {
@@ -230,7 +273,6 @@ public String random() {
 		return "redirect:/randomness/landing";
 
 	}
-	
 
 	//
 	// ================== ERRORS ==========================
@@ -246,5 +288,6 @@ public String random() {
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 	//Michael Lay
+
 
 }
