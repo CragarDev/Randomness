@@ -52,7 +52,6 @@
 
                     <body id="bgImage" class="h-100">
 
-
                         <!--  Nav START -->
                         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                             <div class="container">
