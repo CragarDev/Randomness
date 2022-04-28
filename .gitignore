@@ -33,3 +33,7 @@ build/
 .vscode/
 .DS_Store
 
+### Local Configuration ###
+.env
+
+

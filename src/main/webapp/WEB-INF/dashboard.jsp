@@ -9,7 +9,7 @@
             <!-- form:form -->
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
                 <!-- for rendering errors on PUT routes -->
-                <main%@ page isErrorPage="true" %>
+                <%@ page isErrorPage="true" %>
 
                     <!DOCTYPE html>
 
@@ -38,11 +38,11 @@
                     <body class="h-100">
                         <div class="bg111">
                             <!--  Nav START -->
-                            <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                                 <div class="container">
 
                                     <!-- Landing button -->
-                                    <a class="navbar-brand" href="/"><img class="smallLogo"
+                                    <a class="navbar-brand" href="/randomness/landing"><img class="smallLogo"
                                             src="/images/landingPageItems/smallLogo.png" alt="logo"></a>
 
                                     <!-- Toggler for mobile/small screen -->
@@ -55,10 +55,10 @@
                                     <!-- Collapsable nav bar -->
                                     <div class="collapse navbar-collapse show" id="navbarWithDropdown">
                                         <ul class="navbar-nav">
-
                                             <!-- Login/Registration button -->
                                             <li class="nav-item">
-                                                <a class="nav-link" href="/randomness/login">Login</a>
+                                                <a class="nav-link Vintage-Play-4-hex"
+                                                    href="/randomness/login">Login</a>
                                             </li>
 
                                             <!-- Logout button -->
@@ -78,18 +78,18 @@
                                                     Select A Page
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="/">Home</a></li>
+                                                    <li><a class="dropdown-item" href="/image/rand">Random
+                                                            Picture</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item" href="/randomness/weather">Random
+                                                            Weather</a>
+                                                    </li>
                                                     <li><a class="dropdown-item" href="/randomness/login">Login</a></li>
                                                     <li><a class="dropdown-item" href="/randomness/logout">Logout</a>
                                                     </li>
                                                     <li><a class="dropdown-item"
                                                             href="/randomness/dashboard">Dashboard</a>
                                                     </li>
-
-                                                    <!-- <li><a class="dropdown-item" href="/dashboard">ShowMany</a></li> -->
-                                                    <!-- <li><a class="dropdown-item" href="/createOne">CreateOne</a></li> -->
-                                                    <!-- <li><a class="dropdown-item" href="/updateOne">UpdateOne</a></li> -->
-                                                    <!-- <li><a class="dropdown-item" href="/delete">DeleteOne</a></li> -->
                                                 </ul>
                                             </li>
                                         </ul>
