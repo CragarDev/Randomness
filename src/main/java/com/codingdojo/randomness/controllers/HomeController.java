@@ -1,5 +1,7 @@
 package com.codingdojo.randomness.controllers;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -94,42 +96,66 @@ public class HomeController {
         return "dashboard.jsp";
     }
     
-    
     // **************************************************************************************************************
     //
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  RANDOM IMAGES   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //
     // **************************************************************************************************************
     
+	// @GetMapping("/image/search")
+    // public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
+	// 	Image newImage = new Image();
+	// 	Image returnImage = newImage.getRandomImage(searchQuery);
+	// 	model.addAttribute("Image", returnImage);
+    //     return "randomPicture.jsp";
+    // }
+
 	@GetMapping("/image/search")
-    public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
-		Image newImage = new Image();
-		String returnUrl = Image.fetchImage(searchQuery);
-		model.addAttribute("picUrl", returnUrl);
+    public String randomImage(@RequestParam(required = false, value = "query") String searchQuery, Model model) {
+		
+		if (searchQuery == "" || searchQuery == null){
+			return "redirect:/image/rand";
+		}
+		try {
+			Image newImage = new Image();
+			Image returnImage = newImage.getRandomImage(searchQuery);
+			model.addAttribute("Image", returnImage);
+		} catch (Exception e) {
+			model.addAttribute("searchError", "No images found");
+		}
+
         return "randomPicture.jsp";
     }
 
+	// @GetMapping("/image/search2")
+    // public String randomImage2(@ModelAttribute("newLogin") LoginUser newLogin, Model model) {
+		
+	// 	if (searchQuery == null){
+	// 		System.out.println("!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#");
+	// 	}
+	// 	searchQuery.replace(" ","&");
+	// 	Image newImage = new Image();
+	// 	Image returnImage = newImage.getRandomImage(searchQuery);
+	// 	model.addAttribute("Image", returnImage);
+    //     return "randomPicture.jsp";
+    // }
+	
 	@GetMapping("/image/rand")
     public String randomImage(Model model) {
 		Image newImage = new Image();
-		Image returnImage = Image.fetchImage();
-		System.out.println("**********************");
-        System.out.println(returnImage.getNsfwRating());
-        System.out.println("**********************");
+		Image returnImage = newImage.getRandomImage();
 		model.addAttribute("Image", returnImage);
         return "randomPicture.jsp";
     }
-    
-    
-    
 
+	
+    
 	// **************************************************************************************************************
     //
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  LOGIN REGISTRATION  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //
     // **************************************************************************************************************
     
-
 	@GetMapping("/randomness/login")
 	public String login(Model model, HttpSession session) {
 

@@ -36,10 +36,14 @@
 <link rel="stylesheet" type="text/css" href="/css/style.css">
 
 </head>
-
+<style>
+body {
+	background-image: url("/images/bgs/LandingBG107.png");
+}
+</style>
 <body class="h-100 text-white">
-<div class="bg107">
-	<div class="container ">
+<div>
+	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 text-center text-warning">
 				<h1>Random Image</h1>
@@ -47,14 +51,15 @@
 		</div>
 	</div>
 	<hr>
-	<div class="container w-50 p-2" style="background-color:rgba(0, 0, 0, 0.7);">
-		<div class="row justify-content-center">
+	
+	<div id="mainForm" class="container w-50 p-2" style="background-color:rgba(0, 0, 0, 0.7);">
+		<div class="row justify-content-center m-3">
 			<div class="col-12 text-center pb-2">
 				<h2>Artist: ${Image.artist}</h2>
 			</div>
 		</div>
 		<hr>
-		<div class="row justify-content-center text-center pb-2">
+		<div class="row justify-content-center text-center pb-2 px-4">
 			<div class="col">
 				<p>nsfw rating: ${Image.nsfwRating}%</p>
 			</div>
@@ -62,8 +67,10 @@
 				<p>Categories: ${Image.category}</p>
 			</div>
 		</div>
-		<div class="row justify-content-center text-center">
-			<img class="border border-warning border-5" src=${Image.url} alt="" style="width:80%; height:auto; padding:0;">
+		
+		<div class="row justify-content-center text-center px-4">
+		<h2 style="background-color:rgba(155, 0, 0, 0.7);">${searchError}</h2>
+			<img class="border border-warning border-5" src=${Image.url} alt="" style="width:100%; height:auto; padding:0;">
 		</div>
 		<br>
 		<div class="row justify-content-center text-center pb-3">
@@ -72,15 +79,35 @@
 			</div>
 		</div>
 	</div>
-	<div class="row justify-content-center text-center pt-3">
+	<div class="row justify-content-center text-center pb-3 pt-3">
 		<div class="col-2 ">
-			<a class="shadow btn btn-success" href="/image/rand">Get Random Image</a>
+			<a onclick="load()" class="shadow btn btn-success" href="/image/rand">Get Random Image</a>
 		</div>
 		<div class="col-2">
-			<a class="shadow btn btn-success" href="#">Get Image with Keyword</a>
+			<form action="/image/search/" >  
+				<input onclick="load()" class="btn btn-success mb-1" type="submit" name="submit" value = "Get Image with Keyword">  
+				<input type="text" name="query" />
+			</form>  
 		</div>
 	</div>
+	<div class="container text-center justify-content-center align-items-center" id="loadScreen" style="display: none;">
+	<div class="mt-5">
+		<h2 class="text-center" style="margin: 0 auto">Loading, Please Wait</h2>
+		<img src="/images/loading/giphy.gif" alt="" style="margin: 0 auto">
+	</div>
 </div>
+</div>
+
+<script>
+	function load() {
+		mainForm = document.getElementById("mainForm")
+		loadScreen = document.getElementById("loadScreen")
+		mainForm.style.display = "none"
+		loadScreen.style.display = "block"
+	}
+</script>
 </body>
+
+
 
 </html>
