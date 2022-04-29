@@ -83,7 +83,15 @@
                                                     Select A Page
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                    <li><a class="dropdown-item" href="/">Home</a></li>
+                                                    <li><a class="dropdown-item" href="/indexCovid">Random
+                                                            Covid</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item" href="/image/rand">Random
+                                                            Picture</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item" href="/randomness/weather">Random
+                                                            Weather</a>
+                                                    </li>
                                                     <li><a class="dropdown-item" href="/randomness/login">Login</a></li>
                                                     <li><a class="dropdown-item" href="/randomness/logout">Logout</a>
                                                     </li>

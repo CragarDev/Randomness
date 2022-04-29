@@ -21,7 +21,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 @Service
 public class WeatherService {
-	
+
     //
     // generate a random zipcode
     //
@@ -52,14 +52,14 @@ public class WeatherService {
     private static HttpURLConnection connection;
 
     public Weather weatherData() throws ParseException {
-    	
-    	// import the Api key
-    	Dotenv dotenv = Dotenv.load();
-    	String weatherApi = dotenv.get("WEATHER_API");
-    	
-    	System.out.println("************TEST Weather Key ****************");    	
-    	System.out.println(weatherApi);
-    	System.out.println("*********************************************");
+
+        // import the Api key
+        Dotenv dotenv = Dotenv.load();
+        String weatherApi = dotenv.get("WEATHER_API");
+
+        // System.out.println("************TEST Weather Key ****************");
+        // System.out.println(weatherApi);
+        // System.out.println("*********************************************");
 
         // define a zipcode variable
         String zipcode = null;
@@ -105,6 +105,9 @@ public class WeatherService {
 
                 // Get Response Code
                 statusCode = connection.getResponseCode();
+                System.out.println("********* weather data *********");
+                System.out.println("statusCode" + statusCode);
+                System.out.println("**********************************");
             }
 
             // reading the response data
@@ -137,16 +140,8 @@ public class WeatherService {
             e.printStackTrace();
         } // generates the json object to return
 
-        // use session to store the zipcode
-        // session.setAttribute("zipcode", zipcode);
-
         System.out.println("********* weather data *********");
-        // System.out.println(weatherData);
-        // System.out.println(returnedData);
         System.out.println("json" + json);
-        // json.setZip = zipcode;
-        // System.out.println("json-zip2" + json.getZip());
-
         System.out.println("**********************************");
 
         // from weatherOutput -----------------------------------------

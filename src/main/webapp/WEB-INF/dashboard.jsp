@@ -78,6 +78,9 @@
                                                     Select A Page
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                    <li><a class="dropdown-item" href="/indexCovid">Random
+                                                            Covid</a>
+                                                    </li>
                                                     <li><a class="dropdown-item" href="/image/rand">Random
                                                             Picture</a>
                                                     </li>

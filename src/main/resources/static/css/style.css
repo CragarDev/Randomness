@@ -19,6 +19,13 @@ html {
   background-size: cover;
 }
 
+#animalImage {
+	background-color: black;
+	
+}
+
+
+
 .bg111 {
   /* The image used */
   background-image: url("/images/bgs/LandingBG111.png");

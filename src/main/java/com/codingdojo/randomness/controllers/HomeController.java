@@ -35,22 +35,21 @@ public class HomeController {
 	//
 	private final UserService userService;
 	private final ImageService imageService;
-  private final CoronaVirusDataService coronaVirusDataService;
+	private final CoronaVirusDataService coronaVirusDataService;
 
 	private final WeatherService weatherService;
 
-	
 	//
 	// service constructor
 	//
-	public HomeController(UserService userService, ImageService imageService, CoronaVirusDataService coronaVirusDataService, WeatherService weatherService) {
+	public HomeController(UserService userService, ImageService imageService,
+			CoronaVirusDataService coronaVirusDataService, WeatherService weatherService) {
 		super();
 		this.userService = userService;
 		this.imageService = imageService;
 		this.coronaVirusDataService = coronaVirusDataService;
-    this.weatherService = weatherService;
+		this.weatherService = weatherService;
 	}
-	
 
 	// **************************************************************************************************************
 	//
@@ -101,12 +100,13 @@ public class HomeController {
 
 		// check to see if user is logged in
 
-//		if (session.getAttribute("user_id") == null) {
-//			return "redirect:/createError";
-//		}
+		// if (session.getAttribute("user_id") == null) {
+		// return "redirect:/createError";
+		// }
 
 		// get users data to show them logged in
-//		model.addAttribute("loggedUser", userService.findUser((Long) session.getAttribute("user_id")));
+		// model.addAttribute("loggedUser", userService.findUser((Long)
+		// session.getAttribute("user_id")));
 
 		return "dashboard.jsp";
 	}
@@ -118,42 +118,45 @@ public class HomeController {
 	//
 	// **************************************************************************************************************
 
-//     @GetMapping("/randomness/dashboard")
-//     public String dashboard(
-//     		Model model,
-//     		HttpSession session,
-//     		RedirectAttributes redirectAttributes) {
-    	
-//     	// check to see if user is logged in
-    	
-//     	if (session.getAttribute("user_id") == null) {
-//     		return "redirect:/createError";
-//     	}
-    	
-//     	// get users data to show them logged in
-//     	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
-    	
-//         return "dashboard.jsp";
-//     }
-    
-    // **************************************************************************************************************
-    //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  RANDOM IMAGES   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //
-    // **************************************************************************************************************
-    
+	// @GetMapping("/randomness/dashboard")
+	// public String dashboard(
+	// Model model,
+	// HttpSession session,
+	// RedirectAttributes redirectAttributes) {
+
+	// // check to see if user is logged in
+
+	// if (session.getAttribute("user_id") == null) {
+	// return "redirect:/createError";
+	// }
+
+	// // get users data to show them logged in
+	// model.addAttribute("loggedUser",
+	// userService.findUser((Long)session.getAttribute("user_id")));
+
+	// return "dashboard.jsp";
+	// }
+
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ RANDOM IMAGES
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
 	// @GetMapping("/image/search")
-    // public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
-	// 	Image newImage = new Image();
-	// 	Image returnImage = newImage.getRandomImage(searchQuery);
-	// 	model.addAttribute("Image", returnImage);
-    //     return "randomPicture.jsp";
-    // }
+	// public String randomImage(@RequestParam(value="q") String searchQuery, Model
+	// model) {
+	// Image newImage = new Image();
+	// Image returnImage = newImage.getRandomImage(searchQuery);
+	// model.addAttribute("Image", returnImage);
+	// return "randomPicture.jsp";
+	// }
 
 	@GetMapping("/image/search")
-    public String randomImage(@RequestParam(required = false, value = "query") String searchQuery, Model model) {
-		
-		if (searchQuery == "" || searchQuery == null){
+	public String randomImage(@RequestParam(required = false, value = "query") String searchQuery, Model model) {
+
+		if (searchQuery == "" || searchQuery == null) {
 			return "redirect:/image/rand";
 		}
 		try {
@@ -164,43 +167,39 @@ public class HomeController {
 			model.addAttribute("searchError", "No images found");
 		}
 
-        return "randomPicture.jsp";
-    }
+		return "randomPicture.jsp";
+	}
 
-
-	
 	@GetMapping("/image/rand")
 	public String randomImage(Model model) {
 		Image newImage = new Image();
 
 		Image returnImage = newImage.getRandomImage();
 		model.addAttribute("Image", returnImage);
-        return "randomPicture.jsp";
-    }
+		return "randomPicture.jsp";
+	}
 
-	
-
-    
 	// **************************************************************************************************************
-    //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Michael Lay - COvid Cases  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //
-    // **************************************************************************************************************
- 
-	@GetMapping("/indexCovid") 
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Michael Lay - COvid Cases
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
+	@GetMapping("/indexCovid")
 	public String covidIndex(Model model) {
-		List<LocationStats>allStats = coronaVirusDataService.getAllStats();
-		int totalReportedCases = allStats.stream().mapToInt(stat ->stat.getLastestTotalCases()).sum();
+		List<LocationStats> allStats = coronaVirusDataService.getAllStats();
+		int totalReportedCases = allStats.stream().mapToInt(stat -> stat.getLastestTotalCases()).sum();
 		model.addAttribute("locationStats", allStats);
 		model.addAttribute("totalReportedCases", totalReportedCases);
-		
-		return "indexCovid.jsp"; }
+
+		return "indexCovid.jsp";
+	}
 
 	@GetMapping("/randomCovid")
-public String random() {
-	return "randomCovid.jsp";
-}
-
+	public String random() {
+		return "randomCovid.jsp";
+	}
 
 	// **************************************************************************************************************
 	//
@@ -220,12 +219,13 @@ public String random() {
 
 		// check to see if user is logged in
 
-//		if (session.getAttribute("user_id") == null) {
-//			return "redirect:/createError";
-//		}
+		// if (session.getAttribute("user_id") == null) {
+		// return "redirect:/createError";
+		// }
 
 		// get users data to show them logged in
-//		model.addAttribute("loggedUser", userService.findUser((Long) session.getAttribute("user_id")));
+		// model.addAttribute("loggedUser", userService.findUser((Long)
+		// session.getAttribute("user_id")));
 
 		// grab the new weather from the api
 		Weather wad = null;
@@ -326,11 +326,8 @@ public String random() {
 		return "redirect:/randomness/login";
 	}
 
-    
-    
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-	//Michael Lay
-
+	// Michael Lay
 
 }

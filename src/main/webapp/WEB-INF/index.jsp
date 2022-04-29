@@ -92,6 +92,9 @@
                                                 Select A Page
                                             </a>
                                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <li><a class="dropdown-item" href="/indexCovid">Random
+                                                        Covid</a>
+                                                </li>
                                                 <li><a class="dropdown-item" href="/image/rand">Random
                                                         Picture</a>
                                                 </li>
@@ -164,11 +167,11 @@
 
                         <!-- Middle Section START -->
                         <section class="p-2 mt-5">
-                            <div class="container-fluid w-50 d-flex g-5 align-items-center justify-content-between p-5">
+                            <div class="container-fluid w-50 d-flex g-2 align-items-center justify-content-between p-5">
 
 
                                 <!-- Middle Left Column -->
-                                <div class="">
+                                <div class="d-flex">
 
 
                                     <!-- --------- Weather section ------------- -->
@@ -178,7 +181,7 @@
                                             width="600px"> -->
 
                                         <!-- Weather section START -->
-                                        <section class="p-5">
+                                        <section class="p-2">
                                             <div class="container bgWeather">
                                                 <!-- Top bar -->
                                                 <div class="row">
@@ -191,7 +194,7 @@
                                                     </h1>
                                                 </div>
                                                 <!-- middle row -->
-                                                <div class="d-flex">
+                                                <div class="">
 
                                                     <div class="col">
                                                         <h1
@@ -220,9 +223,10 @@
                                                 <div class="float-start ps-1 mt-4">
                                                     <div class="mt-5">
                                                         <br class="mt-5">
-                                                        <h3 class="mt-5 align-self-bottom text-light">
-                                                            <c:out value="${wad.condition}"></c:out><br><span class="mt-5 text-warning"></span>
-                                                                <c:out value="${wad.description}"></c:out>
+                                                        <h3 class="mt-5  text-light">
+                                                            <c:out value="${wad.condition}"></c:out><br><span
+                                                                class="mt-5 text-warning"></span>
+                                                            <c:out value="${wad.description}"></c:out>
                                                         </h3>
                                                     </div>
                                                 </div>
@@ -241,7 +245,10 @@
                                 <!-- Middle Middle Column -->
                                 <div class="">
                                     <div class="container">
-                                        <img class="img-fluid" src="/images/layout/cat.jpeg" alt="cat" width="640px">
+                                        <a href="/indexCovid">
+                                            <img class="" src="/images/LandingPageItems/imagePage.png"
+                                                alt="Random Image" width="460px">
+                                        </a>
                                     </div>
 
 
@@ -251,9 +258,12 @@
                                 <!-- Middle Right Column -->
                                 <div class="">
                                     <div class="container">
-                                        <img class="img-fluid" src="/images/layout/modano.jpeg" alt="modano"
-                                            width="420px">
+                                        <a href="/indexCovid">
+                                            <img class="" src="/images/LandingPageItems/coronavPage.png"
+                                                alt="Coronavirus" width="460px">
+                                        </a>
                                     </div>
+
 
                                 </div>
 
@@ -264,8 +274,8 @@
                         <p class="w-100"></p>
 
                         <!-- Bottom Section START -->
-                        <section class="p-2 mt-5">
-                            <div class="container-fluid w-50 d-flex g-5 align-items-center justify-content-between p-5">
+                        <section>
+                            <div class="w-100 d-flex align-items-center justify-content-center">
 
                                 <!-- Bottom Left Column -->
                                 <div class="">
@@ -275,15 +285,17 @@
                                 </div>
 
                                 <!-- Bottom Middle Column -->
-                                <div class="">
+                                <div>
+                                    <img class="" src="/images/layout/modano.jpeg" alt="modano" width="400px">
 
-                                    <iframe width="427" height="240" src="https://www.youtube.com/embed/oTEiQx88B2U">
-                                    </iframe>
+                                </div>
+                                <div>
+                                    <img class="" src="/images/layout/cat.jpeg" alt="cat" width="400px">
 
                                 </div>
 
                                 <!-- Bottom Right Column -->
-                                <div class="">
+                                <div>
 
                                     <iframe width="427" height="240" src="https://www.youtube.com/embed/mtEJ3ePxWOw">
                                     </iframe>
