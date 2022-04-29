@@ -9,7 +9,7 @@
             <!-- form:form -->
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
                 <!-- for rendering errors on PUT routes -->
-                <%@ page isErrorPage="true" %>
+                <h1%@ page isErrorPage="true" %>
 
                     <!DOCTYPE html>
 
@@ -154,11 +154,37 @@
                                     <!-- Top Right Column -->
                                     <div class="col-3">
                                         <h3 class="bg-primary text-light p-2 text-center">Random Riddle...</h3>
-                                        <h2 class="bg-dark lead text-warning p-2">“What begins with an “e” and only contains one letter?</h2>
-
+                                        <div class="bg-dark p-2">
+                                            <h2 class="lead text-warning p-2">“What begins with an “e” and only
+                                                contains one letter?</h2>
+                                            <!-- show the answer with a button -->
+                                            <div class="collapse navbar-collapse show" id="showAnswerWithDropdown">
+                                                <ul class="navbar-nav">
+                                                    <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle text-primary" href="#"
+                                                            id="showAnswerDropdownMenuLink" role="button"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            Show Answer
+                                                        </a>
+                                                        <ul class="dropdown-menu bg-primary"
+                                                            aria-labelledby="showAnswerDropdownMenuLink">
+                                                            <li>
+                                                                <h3 class="dropdown-item text-light">The answer
+                                                                    is an
+                                                                    “ENVELOPE". </h3>
+                                                            </li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
+
+                                    <!-- ************************************************* -->
+
+
+                                    <!-- ************************************************* -->
                                 </div>
-                            </div>
                         </section>
                         <!-- Top Section END -->
 
