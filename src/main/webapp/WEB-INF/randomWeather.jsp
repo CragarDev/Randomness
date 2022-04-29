@@ -36,8 +36,8 @@
                         .bgWeather {
                             background-image: url("/images/weatherBackgrounds/${wad.icon}.png");
                             background-repeat: no-repeat;
-                            width: 460px;
-                            min-height: 460px;
+                            width: 600px;
+                            min-height: 600px;
                             background-size: cover;
                             background-position: center;
                             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -46,7 +46,16 @@
                     <link rel="stylesheet" type="text/css" href="/css/style.css">
                 </head>
 
-                <body id="bgImage" class="h-100">
+                <style>
+                    body {
+                        background-image: url("/images/bgs/LandingBG106.png");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-position: center;
+                    }
+                </style>
+
+                <body class="h-100">
 
                     <!--  Nav START -->
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -141,7 +150,7 @@
                                 </div>
                             </div>
                             <!-- bottom row -->
-                            <div class="mt-5">
+                            <div class="mt-5 pe-2">
                                 <div class="text-light mt-3 float-end mb-2">
                                     <p>low: <c:out value="${wad.lows}°"></c:out><br>
                                         high: <c:out value="${wad.highs}°"></c:out><br>
@@ -151,13 +160,13 @@
                                         longitude: <c:out value="${wad.longitude}"></c:out><br>
                                         latitude: <c:out value="${wad.latitude}"></c:out><br>
                                         zipcode: <c:out value="${wad.zip}"></c:out><br>
-                                        <a class="btn btn-outline-info" href="/randomness/weather">Randomize</a>
+                                        <a class="btn btn-outline-info mt-2" href="/randomness/weather">Randomize</a>
                                         <br>
                                     </p>
                                 </div>
                             </div>
                             <br>
-                            <div class="float-start ps-1 mt-4">
+                            <div class="ps-3 mt-4">
                                 <div class="mt-5">
                                     <br class="mt-5">
                                     <h3 class="mt-5 align-self-bottom text-light">
@@ -171,7 +180,7 @@
                         <!-- button to randomize -->
                     </section>
                     <script src="/js/app.js"></script>
-					<script src="/js/landingJS.js"></script>
+                    <script src="/js/landingJS.js"></script>
                 </body>
 
                 </html>

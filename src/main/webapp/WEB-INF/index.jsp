@@ -157,7 +157,9 @@
 
                                     <!-- Top Right Column -->
                                     <div class="col-3">
-                                        <h3 class="bg-primary text-light p-2 text-center">?? Random Riddle ??</h3>
+                                        <h3 class="bg-primary text-light p-2 text-center"><span
+                                                class="text-info">??</span> Random Riddle <span
+                                                class="text-info">??</span></h3>
                                         <div class="bg-dark p-2">
                                             <h2 class="lead text-warning p-2">“What begins with an “e” and only
                                                 contains one letter?</h2>

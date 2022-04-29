@@ -9,7 +9,7 @@
 				<!-- for rendering errors on PUT routes -->
 				<%@ page isErrorPage="true" %>
 					<!DOCTYPE html>
-					<html>
+					<html class="h-100">
 
 					<head>
 						<meta charset="UTF-8" />
@@ -31,10 +31,13 @@
 					<style>
 						body {
 							background-image: url("/images/bgs/LandingBG101.png");
+							background-repeat: no-repeat;
+							background-size: cover;
+							background-position: center;
 						}
 					</style>
 
-					<body>
+					<body class="h-100">
 
 						<!--  Nav START -->
 						<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -127,7 +130,7 @@
 										--%>
 							</div>
 
-					
+
 
 
 
