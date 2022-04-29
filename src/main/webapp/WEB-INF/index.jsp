@@ -167,7 +167,7 @@
 
                         <!-- Middle Section START -->
                         <section class="p-2 mt-5">
-                            <div class="container-fluid w-50 d-flex g-2 align-items-center justify-content-between p-5">
+                            <div class="container-fluid w-75 d-flex g-2 align-items-center justify-content-center p-5">
 
 
                                 <!-- Middle Left Column -->
