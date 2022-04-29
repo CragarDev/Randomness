@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.Date" %>
+
     <!-- Here we have to import the Date class. -->
     <!-- You will put the import in the first line of the jsp tag. Use the import attribute -->
 
@@ -42,6 +43,71 @@ body {
 }
 </style>
 <body class="h-100 text-white">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+
+    <!-- Landing button -->
+    <a class="navbar-brand" href="/randomness/landing"><img class="smallLogo"
+        src="/images/landingPageItems/smallLogo.png" alt="logo"></a>
+
+    <!-- Toggler for mobile/small screen -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarWithDropdown" aria-controls="navbarWithDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsable nav bar -->
+    <div class="collapse navbar-collapse show" id="navbarWithDropdown">
+      <ul class="navbar-nav">
+        <!-- Login/Registration button -->
+        <li class="nav-item">
+          <a class="nav-link Vintage-Play-4-hex" href="/randomness/login">Login</a>
+        </li>
+
+        <!-- Logout button -->
+        <li class="nav-item">
+          <a class="nav-link" href="/randomness/logout">Logout</a>
+        </li>
+
+        <!-- Dashboard button -->
+        <li class="nav-item">
+          <a class="nav-link" href="/randomness/dashboard">Dashboard</a>
+        </li>
+
+        <!-- Dropdown buttons -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Select A Page
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/image/rand">Random
+                Picture</a>
+            </li>
+            <li><a class="dropdown-item" href="/randomness/weather">Random
+                Weather</a>
+            </li>
+            <li><a class="dropdown-item" href="/randomness/login">Login</a></li>
+            <li><a class="dropdown-item" href="/randomness/logout">Logout</a>
+            </li>
+            <li><a class="dropdown-item" href="/randomness/dashboard">Dashboard</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <!-- Search Bar and button -->
+      <div class="container float-end">
+        <form class="d-flex float-end">
+          <input class="form-control me-2" type="search" placeholder="Search"
+            aria-label="Search">
+          <button class="btn btn-outline-warning" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+						<!--  Nav END -->
 <div>
 	<div class="container">
 		<div class="row justify-content-center">

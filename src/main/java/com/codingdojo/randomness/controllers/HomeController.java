@@ -1,6 +1,7 @@
 package com.codingdojo.randomness.controllers;
 
-import java.lang.ProcessBuilder.Redirect;
+import java.text.ParseException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,86 +16,125 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.codingdojo.randomness.models.Image;
+import com.codingdojo.randomness.models.LocationStats;
 import com.codingdojo.randomness.models.LoginUser;
 import com.codingdojo.randomness.models.User;
+import com.codingdojo.randomness.models.Weather;
 import com.codingdojo.randomness.models.Image;
+import com.codingdojo.randomness.services.CoronaVirusDataService;
 import com.codingdojo.randomness.services.ImageService;
 import com.codingdojo.randomness.services.UserService;
-
-
+import com.codingdojo.randomness.services.WeatherService;
 
 @Controller
 public class HomeController {
-	
+
 	//
 	// Inject the services
 	//
 	private final UserService userService;
 	private final ImageService imageService;
+  private final CoronaVirusDataService coronaVirusDataService;
+
+	private final WeatherService weatherService;
+
 	
 	//
 	// service constructor
 	//
-	public HomeController(UserService userService, ImageService imageService) {
+	public HomeController(UserService userService, ImageService imageService, CoronaVirusDataService coronaVirusDataService, WeatherService weatherService) {
 		super();
 		this.userService = userService;
 		this.imageService = imageService;
+		this.coronaVirusDataService = coronaVirusDataService;
+    this.weatherService = weatherService;
 	}
 	
-	
-	
+
 	// **************************************************************************************************************
 	//
-	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  LANDING PAGE  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ LANDING PAGE
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//
 	// **************************************************************************************************************
-	
 
-   
-    @GetMapping("/")
-    public String index() {
+	@GetMapping("/")
+	public String index(Model model) {
 
-        return "index.jsp";
-    }
+		Weather wad = null;
+		try {
+			wad = weatherService.weatherData();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("wad", wad);
 
+		return "index.jsp";
+	}
 
 	@GetMapping("/home")
-    public String home() {
+	public String home() {
 
-        return "redirect:/";
-    }
+		return "redirect:/";
+	}
 
-    @GetMapping("/randomness/landing")
-    public String randomness() {
+	@GetMapping("/randomness/landing")
+	public String randomness() {
 
-        return "redirect:/";
-    }
+		return "redirect:/";
+	}
 
-    
-    // **************************************************************************************************************
-    //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  DASHBOARD PAGE  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    //
-    // **************************************************************************************************************
-    
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ DASHBOARD PAGE
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
 
-    @GetMapping("/randomness/dashboard")
-    public String dashboard(
-    		Model model,
-    		HttpSession session,
-    		RedirectAttributes redirectAttributes) {
+	@GetMapping("/randomness/dashboard")
+	public String dashboard(
+			Model model,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
+
+		// check to see if user is logged in
+
+//		if (session.getAttribute("user_id") == null) {
+//			return "redirect:/createError";
+//		}
+
+		// get users data to show them logged in
+//		model.addAttribute("loggedUser", userService.findUser((Long) session.getAttribute("user_id")));
+
+		return "dashboard.jsp";
+	}
+
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ RANDOM IMAGES
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
+//     @GetMapping("/randomness/dashboard")
+//     public String dashboard(
+//     		Model model,
+//     		HttpSession session,
+//     		RedirectAttributes redirectAttributes) {
     	
-    	// check to see if user is logged in
+//     	// check to see if user is logged in
     	
-    	if (session.getAttribute("user_id") == null) {
-    		return "redirect:/createError";
-    	}
+//     	if (session.getAttribute("user_id") == null) {
+//     		return "redirect:/createError";
+//     	}
     	
-    	// get users data to show them logged in
-    	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
+//     	// get users data to show them logged in
+//     	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
     	
-        return "dashboard.jsp";
-    }
+//         return "dashboard.jsp";
+//     }
     
     // **************************************************************************************************************
     //
@@ -127,35 +167,86 @@ public class HomeController {
         return "randomPicture.jsp";
     }
 
-	// @GetMapping("/image/search2")
-    // public String randomImage2(@ModelAttribute("newLogin") LoginUser newLogin, Model model) {
-		
-	// 	if (searchQuery == null){
-	// 		System.out.println("!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#");
-	// 	}
-	// 	searchQuery.replace(" ","&");
-	// 	Image newImage = new Image();
-	// 	Image returnImage = newImage.getRandomImage(searchQuery);
-	// 	model.addAttribute("Image", returnImage);
-    //     return "randomPicture.jsp";
-    // }
+
 	
 	@GetMapping("/image/rand")
-    public String randomImage(Model model) {
+	public String randomImage(Model model) {
 		Image newImage = new Image();
+
 		Image returnImage = newImage.getRandomImage();
 		model.addAttribute("Image", returnImage);
         return "randomPicture.jsp";
     }
 
 	
+
     
 	// **************************************************************************************************************
     //
-    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  LOGIN REGISTRATION  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Michael Lay - COvid Cases  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //
     // **************************************************************************************************************
-    
+ 
+	@GetMapping("/indexCovid") 
+	public String index(Model model) {
+		List<LocationStats>allStats = coronaVirusDataService.getAllStats();
+		int totalReportedCases = allStats.stream().mapToInt(stat ->stat.getLastestTotalCases()).sum();
+		model.addAttribute("locationStats", allStats);
+		model.addAttribute("totalReportedCases", totalReportedCases);
+		
+		return "indexCovid.jsp"; }
+
+	@GetMapping("/randomCovid")
+public String random() {
+	return "randomCovid.jsp";
+}
+
+
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Random Weather
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
+	// constructor for Weather Service
+
+	// route for the standalone page
+	@RequestMapping("/randomness/weather")
+	public String weather(
+			Model model,
+			HttpSession session,
+			RedirectAttributes redirectAttributes) {
+
+		// check to see if user is logged in
+
+//		if (session.getAttribute("user_id") == null) {
+//			return "redirect:/createError";
+//		}
+
+		// get users data to show them logged in
+//		model.addAttribute("loggedUser", userService.findUser((Long) session.getAttribute("user_id")));
+
+		// grab the new weather from the api
+		Weather wad = null;
+		try {
+			wad = weatherService.weatherData();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("wad", wad);
+
+		return "randomWeather.jsp";
+	}
+
+	// **************************************************************************************************************
+	//
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ LOGIN REGISTRATION
+	// ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//
+	// **************************************************************************************************************
+
 	@GetMapping("/randomness/login")
 	public String login(Model model, HttpSession session) {
 
@@ -225,7 +316,6 @@ public class HomeController {
 		return "redirect:/randomness/landing";
 
 	}
-	
 
 	//
 	// ================== ERRORS ==========================
@@ -240,6 +330,7 @@ public class HomeController {
     
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-	
+	//Michael Lay
+
 
 }
