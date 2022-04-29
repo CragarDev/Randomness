@@ -188,7 +188,7 @@ public class HomeController {
     // **************************************************************************************************************
  
 	@GetMapping("/indexCovid") 
-	public String index(Model model) {
+	public String covidIndex(Model model) {
 		List<LocationStats>allStats = coronaVirusDataService.getAllStats();
 		int totalReportedCases = allStats.stream().mapToInt(stat ->stat.getLastestTotalCases()).sum();
 		model.addAttribute("locationStats", allStats);
