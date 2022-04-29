@@ -30,6 +30,10 @@
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
                             integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
                             crossorigin="anonymous"></script>
+                        <link rel="stylesheet"
+                            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css"
+                            integrity="sha384-ejwKkLla8gPP8t2u0eQyL0Q/4ItcnyveF505U0NIobD/SMsNyXrLti6CWaD0L52l"
+                            crossorigin="anonymous">
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
                         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -130,7 +134,7 @@
 
                                     <!-- Top Left Column -->
                                     <div class="col-3">
-                                        <h3 class="bg-dark text-light p-2 text-center">Java Quote</h3>
+                                        <h3 class="bg-dark text-light p-2 text-center">☕️ Java Quote ☕️</h3>
                                         <p class="bg-info lead text-dark p-2">“Coffee is the common man’s gold, and like
                                             gold, it brings to every person the feeling of luxury and nobility.”
                                             ~ Sheik-Abd-al-Kadir</p>
@@ -153,7 +157,7 @@
 
                                     <!-- Top Right Column -->
                                     <div class="col-3">
-                                        <h3 class="bg-primary text-light p-2 text-center">Random Riddle...</h3>
+                                        <h3 class="bg-primary text-light p-2 text-center">?? Random Riddle ??</h3>
                                         <div class="bg-dark p-2">
                                             <h2 class="lead text-warning p-2">“What begins with an “e” and only
                                                 contains one letter?</h2>
