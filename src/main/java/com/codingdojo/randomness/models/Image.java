@@ -28,6 +28,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @Entity
 @Table(name = "images")
 public class Image {
@@ -186,6 +188,12 @@ public class Image {
     }
 
     public Image mapJsonPexel(String query) {
+    	
+    	// import the Api key
+        Dotenv dotenv = Dotenv.load();
+        String pexelApi = dotenv.get("PEXEL_KEY");
+        
+        
         Image newImage = new Image();
         query = query.replaceAll(" ", "%20");
         Random rand = new Random();
@@ -197,7 +205,7 @@ public class Image {
                 + "&locale=en-US&per_page=50&page=1";
         try {
             HttpResponse<String> response = Unirest.get(search)
-                    .header("Authorization", "PEXEL_KEY")
+                    .header("Authorization", pexelApi)
                     .header("X-RapidAPI-Host", "PexelsdimasV1.p.rapidapi.com")
                     .header("X-RapidAPI-Key", "297858111amsh921cb02eb5b6074p1b2579jsn280f7b970284")
                     .asString();

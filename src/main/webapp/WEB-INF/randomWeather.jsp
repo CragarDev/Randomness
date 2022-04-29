@@ -11,7 +11,7 @@
                 <!DOCTYPE html>
                 <html>
 
-                <head>
+                <head class="h-100">
                     <meta charset="UTF-8" />
                     <title>Weather API</title>
                     <!-- Bootstrap -->
@@ -30,7 +30,6 @@
                         </script>
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
                     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-                    <link rel="stylesheet" type="text/css" href="/css/style.css">
 
                     <!-- style for the background of the div -->
                     <style>
@@ -44,9 +43,10 @@
                             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                         }
                     </style>
+                    <link rel="stylesheet" type="text/css" href="/css/style.css">
                 </head>
 
-                <body class="bg-dark">
+                <body id="bgImage" class="h-100">
 
                     <!--  Nav START -->
                     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -170,8 +170,8 @@
                         </div>
                         <!-- button to randomize -->
                     </section>
-
                     <script src="/js/app.js"></script>
+					<script src="/js/landingJS.js"></script>
                 </body>
 
                 </html>

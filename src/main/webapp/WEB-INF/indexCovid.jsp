@@ -31,6 +31,11 @@
 
 
 					</head>
+					<style>
+						body {
+							background-image: url("/images/bgs/LandingBG102.png");
+						}
+					</style>
 
 					<body>
 
@@ -103,7 +108,7 @@
 							</div>
 						</nav>
 						<!--  Nav END -->
-						<div class="container">
+						<div class="container bg-light">
 							<!-- Beginning of Container -->
 
 

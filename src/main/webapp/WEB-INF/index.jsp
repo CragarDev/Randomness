@@ -130,10 +130,10 @@
 
                                     <!-- Top Left Column -->
                                     <div class="col-3">
-                                        <h3 class="text-light">We can put something here...</h3>
-                                        <p class="lead text-light">Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit.
-                                            Aperiam, quod tenetur? Explicabo eveniet recusandae laboriosam!</p>
+                                        <h3 class="bg-dark text-light p-2 text-center">Java Quote</h3>
+                                        <p class="bg-info lead text-dark p-2">“Coffee is the common man’s gold, and like
+                                            gold, it brings to every person the feeling of luxury and nobility.”
+                                            ~ Sheik-Abd-al-Kadir</p>
 
                                     </div>
 
@@ -153,10 +153,9 @@
 
                                     <!-- Top Right Column -->
                                     <div class="col-3">
-                                        <h3 class="text-light">We can put something here...</h3>
-                                        <p class="lead text-light">Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit.
-                                            Aperiam, quod tenetur? Explicabo eveniet recusandae laboriosam!</p>
+                                        <h3 class="bg-primary text-light p-2 text-center">Random Riddle...</h3>
+                                        <h2 class="bg-dark lead text-warning p-2">“What begins with an “e” and only contains one letter?</h2>
+
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +244,7 @@
                                 <!-- Middle Middle Column -->
                                 <div class="">
                                     <div class="container">
-                                        <a href="/indexCovid">
+                                        <a href="/image/rand">
                                             <img class="" src="/images/LandingPageItems/imagePage.png"
                                                 alt="Random Image" width="460px">
                                         </a>
