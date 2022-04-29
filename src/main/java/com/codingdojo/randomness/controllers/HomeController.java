@@ -118,31 +118,74 @@ public class HomeController {
 	//
 	// **************************************************************************************************************
 
-	@GetMapping("/image/search")
-	public String randomImage(@RequestParam(value = "q") String searchQuery, Model model) {
-		Image newImage = new Image();
-		String returnUrl = Image.fetchImage(searchQuery);
-		model.addAttribute("picUrl", returnUrl);
-		return "randomPicture.jsp";
-	}
+//     @GetMapping("/randomness/dashboard")
+//     public String dashboard(
+//     		Model model,
+//     		HttpSession session,
+//     		RedirectAttributes redirectAttributes) {
+    	
+//     	// check to see if user is logged in
+    	
+//     	if (session.getAttribute("user_id") == null) {
+//     		return "redirect:/createError";
+//     	}
+    	
+//     	// get users data to show them logged in
+//     	model.addAttribute("loggedUser", userService.findUser((Long)session.getAttribute("user_id")));
+    	
+//         return "dashboard.jsp";
+//     }
+    
+    // **************************************************************************************************************
+    //
+    // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  RANDOM IMAGES   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //
+    // **************************************************************************************************************
+    
+	// @GetMapping("/image/search")
+    // public String randomImage(@RequestParam(value="q") String searchQuery, Model model) {
+	// 	Image newImage = new Image();
+	// 	Image returnImage = newImage.getRandomImage(searchQuery);
+	// 	model.addAttribute("Image", returnImage);
+    //     return "randomPicture.jsp";
+    // }
 
+	@GetMapping("/image/search")
+    public String randomImage(@RequestParam(required = false, value = "query") String searchQuery, Model model) {
+		
+		if (searchQuery == "" || searchQuery == null){
+			return "redirect:/image/rand";
+		}
+		try {
+			Image newImage = new Image();
+			Image returnImage = newImage.getRandomImage(searchQuery);
+			model.addAttribute("Image", returnImage);
+		} catch (Exception e) {
+			model.addAttribute("searchError", "No images found");
+		}
+
+        return "randomPicture.jsp";
+    }
+
+
+	
 	@GetMapping("/image/rand")
 	public String randomImage(Model model) {
 		Image newImage = new Image();
-		Image returnImage = Image.fetchImage();
-		System.out.println("**********************");
-		System.out.println(returnImage.getNsfwRating());
-		System.out.println("**********************");
+
+		Image returnImage = newImage.getRandomImage();
 		model.addAttribute("Image", returnImage);
         return "randomPicture.jsp";
     }
+
+	
+
     
 	// **************************************************************************************************************
     //
     // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^  Michael Lay - COvid Cases  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     //
     // **************************************************************************************************************
-
  
 	@GetMapping("/indexCovid") 
 	public String index(Model model) {
